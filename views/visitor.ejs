@@ -1,0 +1,72 @@
+<%- include header %>
+
+ <header class="ui-header ui-header-positive ui-border-b">
+        <h1>访问列表</h1>
+        <button id="addvisit" class="ui-btn">添加访问</button>
+ </header>
+<section class="ui-container">
+              <ul class="ui-list friend-list ui-list-function ">
+
+                <% visitors.forEach(function (vis, index) { %>
+                       <li class="">
+                               <div class="ui-list-img">
+                                  <span class="pro-logo" style="background-image: url(http://77flz7.com1.z0.glb.clouddn.com/wpjam/banner/wp-blue-640x960.png?imageView2/1/w/50/h/50);width:68px">
+                                  </span>
+                              </div>
+                               <div class="ui-list-info ui-border-b">
+                                   <h4 class="ui-nowrap ">公司：<%= vis.company %></h4>
+                                   <p class="sub-msg ui-nowrap">姓名：NXT<%= vis.hostname %></p>
+                                   <p>时间：2016-01-20 12:00<%= vis.datetime %></p>
+                               </div>
+                               <% if(vis.state==0){ %>
+                                  <button  class="ui-btn addvisit" _id='<%= vis._id %>' company='<%= vis.company %>' >查看详情</button>
+                              <% }else{  %>
+                                     <button  class="ui-btn ui-btn-danger" disabled>已访问</button>
+                               <% }  %>
+                        </li>
+                <% });%>
+
+              </ul>
+</section>
+
+<div class="ui-dialog">
+    <div class="ui-dialog-cnt">
+        <div class="ui-dialog-bd">
+            <div>
+              <h2 style="text-align:center">我要访问</h2>
+            <div>
+              <div class="ui-form ui-border-t">
+                <form id="addVisitor" method="post">
+
+                   <div class="weui_cell">
+                       <div class="weui_cell_hd"><label class="weui_label">公司:</label></div>
+                       <div class="weui_cell_bd weui_cell_primary">
+                           <input class="weui_input" name="company" placeholder="输入公司名称">
+                       </div>
+                   </div>
+
+                  <div class="weui_cell">
+                    <div class="weui_cell_hd"><label for="" class="weui_label">时间:</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                      <input class="weui_input" type="datetime-local" value="" placeholder="">
+                    </div>
+                  </div>
+
+                   <div class="weui_cell">
+    		               <div class="weui_cell_hd"><label class="weui_label">捎话:</label></div>
+    		               <div class="weui_cell_bd weui_cell_primary">
+    		                   <input class="weui_input" name="notes" placeholder="">
+    		               </div>
+		               </div>
+                </form>
+            </div>
+            </div>
+        </div>
+        <div class="ui-dialog-ft ui-btn-group">
+            <button type="button" data-role="button" 
+             class="select" id="dialogButton">提交</button> 
+        </div>
+    </div>        
+</div>
+
+<%- include footer %>

@@ -1,0 +1,28 @@
+
+<script src="/js/zepto.min.js"></script>
+<script src="/js/frozen.js"></script>
+
+<!--  添加访问记录表单 -->
+<script>
+    $("#addvisit").tap(function(){
+        var dia2=$(".ui-dialog").dialog("show");
+        dia2.on("dialog:action",function(e){
+            console.log(e.index)
+        });
+    });
+
+    $("#dialogButton").tap(function(){
+    	document.getElementById('addVisitor').submit();
+    });
+
+	// 导航到摇一摇页面
+	$(".addvisit").tap(function(){
+         var _id = this.getAttribute('_id');
+         var company = this.getAttribute('company');
+	     window.location.href='/visitordetail?_id='+_id+'&company='+company;
+	});
+
+</script>
+
+</body>
+</html>

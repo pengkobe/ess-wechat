@@ -1,0 +1,70 @@
+<%- include header %>
+
+ <header class="ui-header ui-header-positive ui-border-b">
+        <h1>完善资料</h1>
+ </header>
+    
+<section class="ui-container">
+      <section class="ui-panel ui-panel-simple ui-border-tb">
+
+        <div class="hd">
+              <div class="ui-avatar-one" style="margin:0 auto">
+                <span style="background-image:url(<%= headimgurl %>)"></span>
+              </div>
+              <h4 style="text-align:center"><%= nickname %></h4>
+        </div>
+
+<form id="infoform" method="post">
+
+          <div class="weui_cell">
+               <div class="weui_cell_hd"><label class="weui_label">公司</label></div>
+               <div class="weui_cell_bd weui_cell_primary">
+                   <input class="weui_input" placeholder="请输入公司名称" name="company" value="<%= company%>">
+               </div>
+           </div>
+
+           <div class="weui_cell">
+               <div class="weui_cell_hd"><label class="weui_label">姓名</label></div>
+               <div class="weui_cell_bd weui_cell_primary">
+                   <input class="weui_input" placeholder="填写真名便于识别" name="realName" value="<%= realName %>">
+               </div>
+           </div>
+
+           <div class="weui_cell weui_cell_select">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <select class="weui_select" name="identity">
+                        <option selected="" value="host">前台</option>
+                        <option value="visitor">其它职员</option>
+                    </select>
+                </div>
+            </div>
+
+             <div class="ui-form-item ui-form-item-l ui-border-b">
+                        <label class="ui-border-r">
+                            中国 +86
+                        </label>
+                        <input type="text" placeholder="选填">
+                          <a href="#" class="ui-icon-close">
+                        </a>
+                    </div>
+
+            <div class="weui_cell">
+               <div class="weui_cell_hd"><label class="weui_label">邮箱</label></div>
+               <div class="weui_cell_bd weui_cell_primary">
+                   <input class="weui_input" type="email" placeholder="选填" name="email">
+               </div>
+           </div>
+
+           
+          <div class="weui_btn_area">
+            <a class="weui_btn weui_btn_primary" href="#" name="submit" onclick="document.getElementById('infoform').submit();return false" > 
+            提交
+            </a>
+         </div>
+</form>
+
+      </section>
+ </section>
+
+<%- include footer %>
+

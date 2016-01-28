@@ -1,0 +1,26 @@
+<%- include header %>
+
+ <header class="ui-header ui-header-positive ui-border-b">
+        <h1>预约访问者</h1>
+ </header>
+<section class="ui-container">
+              <ul class="ui-list friend-list ui-list-function ">
+                <% visitors.forEach(function (vis, index) { %>
+                       <li class="">
+                               <div class="ui-list-img">
+                                   <span class="pro-logo" style="background-image: url(<%= vis.headimgurl %>);width:68px">
+                                   </span>
+                               </div>
+                               <div class="ui-list-info ui-border-b">
+                                   <h4 class="ui-nowrap ">公司：<%= vis.visitorCompany %></h4>
+                                   <p class="sub-msg ui-nowrap">姓名：<%= vis.realName %></p>
+                                   <p>时间：2016-01-20 12:00<%= vis.datetime %></p>
+                               </div>
+                               <div class="ui-btn">确认</div>
+                        </li>
+                <% });%>
+                 
+              </ul>
+</section>
+
+<%- include footer %>

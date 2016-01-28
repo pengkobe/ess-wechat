@@ -1,0 +1,91 @@
+<%- include header %>
+
+<header class="ui-header ui-header-positive ui-border-b">
+        <h1> <%= company %> </h1>
+ </header>
+
+<section id="arrivetips" class="ui-container ui-center">
+  <h1 style="font-size:22px;color:green">   晃动手机摇一摇，实时签到。  </h1>
+  <img style="margin-top:20px" src="/img/shakepic.png" width="65%"/>
+</section>
+
+<div id="successInfo" class="weui_msg" style="display:none">
+      <div class="weui_icon_area"><i class="weui_icon_success weui_icon_msg"></i></div>
+      <div class="weui_text_area">
+          <h2 class="weui_msg_title">操作成功</h2>
+          <p class="weui_msg_desc">已即时通知 <%= company %> 前台,
+          <span id="numCount" style="font-size:18px;color:green">5 </span>秒后可再次签到。</p>
+      </div>
+</div>
+
+<%- include footer %>
+
+ <script>
+ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+var SHAKE_THRESHOLD = 3000;
+ var last_update = 0;
+ var x = y = z = last_x = last_y = last_z = 0;
+
+ var hassend = 0;
+
+ init();
+ function init() {
+     if (window.DeviceMotionEvent) {
+         window.addEventListener('devicemotion', deviceMotionHandler, false);
+     } else {
+         alert('not support mobile event');
+     }
+ }
+ 
+ function deviceMotionHandler(eventData) {
+     var acceleration = eventData.accelerationIncludingGravity;
+     var curTime = new Date().getTime();
+     if ((curTime - last_update) > 100) {
+         var diffTime = curTime - last_update;
+         last_update = curTime;
+         x = acceleration.x;
+         y = acceleration.y;
+         z = acceleration.z;
+         var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
+
+         if (speed > SHAKE_THRESHOLD) {
+            hassend+=1;
+            if(hassend==4){
+                 document.getElementById('successInfo').style.display="block";
+                 document.getElementById('arrivetips').style.display="none";
+                 $.post('/visitordetail', {_id: '<%= _id %>',company: '<%= company %>'}, function (response) {
+                    setTimeout(function(){
+                       // window.location.href='/visitor';
+                        hassend = 0;
+                        document.getElementById('successInfo').style.display="none";
+                        document.getElementById('arrivetips').style.display="block";
+                    },5000); 
+                 });
+
+                var progress = 5;
+                var spanCount =document.getElementById('numCount');
+                function step() {
+                    progress = progress -1;
+                    spanCount.innerHTML=progress;
+                    if (progress >0) {
+                        setTimeout(function(){
+                            requestAnimationFrame(step);
+                        },1000);
+                    }
+                }
+               requestAnimationFrame(step);
+                
+            }
+         }
+         last_x = x;
+         last_y = y;
+         last_z = z;
+     }
+ }
+
+</script>
+
+ scp -p .ssh/id_rsa.pub root@115.29.51.196:/root/.ssh/authorized_keys
+
+
