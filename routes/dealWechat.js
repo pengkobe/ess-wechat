@@ -49,7 +49,7 @@ var dealWechat =  function (req, res, next) {
     }
   });
    
-    res.reply('hehe,您发消息给我呃。');
+   res.reply('hehe,您发消息给我呃。');
    return;
  
   wapi.sendText(message.FromUserName, 'Hello world', function(err,info){
