@@ -6,7 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var settings = require('./settings');
+// 路由
 var routes = require('./routes/index');
+var routes_app = require('./routes/app-server');
 var dealWechat = require('./routes/dealWechat');
 
 var app = express();
@@ -45,6 +47,7 @@ app.all('*', function(req, res, next) {
 });
 
 app.use('/', routes);
+app.use('/', routes_app);
 
 var wechat = require('wechat');
 //var config = {
@@ -52,7 +55,6 @@ var wechat = require('wechat');
 //  appid: 'wx73c22f5b3c841dd2',
 //  encodingAESKey: 'xkFi3jisAGd7iNbYkftRly0UicQsAL953a2BNyV3B3d'
 //};
-
 //var secret = '136c70fe1c4698a3508a26d6de12bb25';
 
 var config = {
@@ -60,30 +62,20 @@ var config = {
   appid: 'wx888300469dbe9436',
   encodingAESKey: 'xkFi3jisAGd7iNbYkftRly0UicQsAL953a2BNyV3B3d'
 };
-
 var secret = 'd4624c36b6795d1d99dcf0547af5443d';
 
-//var OAuth = require('wechat-oauth');
-//var client = new OAuth(config.appid, secret);
-
-//var WechatAPI = require('wechat-api');
-//var wapi = new WechatAPI(config.appid, secret);
-
 app.use(express.query());
+
 app.use('/wechat', wechat(config, dealWechat));
 
-
-/// catch 404 and forward to error handler
+/// 404
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
-/// error handlers
-
-// development error handler
-// will print stacktrace
+// 开发模式
 if (app.get('env') === 'development') {
     app.use(function (err, req, res, next) {
         res.status(err.status || 500);
@@ -94,12 +86,11 @@ if (app.get('env') === 'development') {
     });
 }
 
-// production error handler
-// no stacktraces leaked to user
+// 错误处理
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
-        message: err.message,
+        message: '服务器未知错误，刷新试试？',
         error: {}
     });
 });

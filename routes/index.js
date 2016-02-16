@@ -10,10 +10,10 @@ var Host = require('../models/host.js');
 var WechatAPI = require('wechat-api');
 var wapi = new WechatAPI(settings.appid, settings.secret);
 
-/* 主页. */
-router.get('/', function (req, res) {
-    res.render('index');
-});
+	/* 主页. */
+	router.get('/', function (req, res) {
+	    res.render('index');
+	});
 
 	/* 网页授权. */
 	router.get('/login', function (req_p, res) {
@@ -33,15 +33,6 @@ router.get('/', function (req, res) {
 			   company: user.company,
 		    });
 	    }
-	});
-
-	// app 登陆
-	router.post('/applogin', function (req, res) {
-		var username = req.body.username;
-		var password = req.body.password;
-	  	User.login(username,password,function(err,user){
-				res.json({user: user});
-	   });  
 	});
 
 	router.post('/login', checkLogin);
