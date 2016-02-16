@@ -35,6 +35,14 @@ router.get('/', function (req, res) {
 	    }
 	});
 
+	// app 登陆
+	router.post('/applogin', function (req, res) {
+		var username = req.body.username;
+		var password = req.body.password;
+	  	User.login(username,password,function(err,user){
+				res.json({user: user});
+	   });  
+	});
 
 	router.post('/login', checkLogin);
 	router.post('/login', function (req, res) {

@@ -94,6 +94,34 @@ User.get = function(openid, callback) {
   });
 };
 
+//读取用户信息
+User.login = function(username,password, callback) {
+  //打开数据库
+  mongodb.open(function (err, db) {
+    if (err) {
+      return callback(err);//错误，返回 err 信息
+    }
+    //读取 users 集合
+    db.collection('users', function (err, collection) {
+      if (err) {
+        mongodb.close();
+        return callback(err);//错误，返回 err 信息
+      }
+      //按主键openid
+      collection.findOne({
+        nickname: username,
+        password: password
+      }, function (err, user) {
+        mongodb.close();
+        if (err) {
+          return callback(err);//失败！返回 err
+        }
+        callback(null, user);//成功！
+      });
+    });
+  });
+};
+
 //更新用户信息
 User.update = function(openid, company,realName, callback) {
   //打开数据库
